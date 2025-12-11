@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://unpkg.com/docx@7.1.0/build/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>File Converter</h1>
+            <p>Convert Images, PDF, Word & Merge PDFs instantly.</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="jpeg-to-pdf">JPEG to PDF</button>
+            <button class="tab-btn" data-tab="pdf-to-jpeg">PDF to JPEG</button>
+            <button class="tab-btn" data-tab="pdf-to-word">PDF to Word</button>
+            <button class="tab-btn" data-tab="word-to-pdf">Word to PDF</button>
+            <button class="tab-btn" data-tab="merge-pdf">Merge PDF</button>
+        </div>
+
+        <div class="content">
+            <!-- JPEG to PDF Section -->
+            <div id="jpeg-to-pdf" class="tab-content active">
+                <div class="upload-area" id="drop-zone-jpeg">
+                    <input type="file" id="jpeg-input" accept="image/jpeg, image/jpg" multiple hidden>
+                    <div class="icon">📷</div>
+                    <p>Drag & Drop JPEG images here or <span class="browse-btn">Browse</span></p>
+                </div>
+                <div id="jpeg-preview" class="preview-area"></div>
+                <button id="convert-jpeg-btn" class="action-btn" disabled>Convert to PDF</button>
+            </div>
+
+            <!-- PDF to JPEG Section -->
+            <div id="pdf-to-jpeg" class="tab-content">
+                <div class="upload-area" id="drop-zone-pdf">
+                    <input type="file" id="pdf-input" accept="application/pdf" hidden>
+                    <div class="icon">📄</div>
+                    <p>Drag & Drop PDF file here or <span class="browse-btn">Browse</span></p>
+                </div>
+                <div id="pdf-preview" class="preview-area"></div>
+                <button id="convert-pdf-btn" class="action-btn" disabled>Convert to JPEG</button>
+            </div>
+
+            <!-- PDF to Word Section -->
+            <div id="pdf-to-word" class="tab-content">
+                <div class="upload-area" id="drop-zone-pdf-word">
+                    <input type="file" id="pdf-word-input" accept="application/pdf" hidden>
+                    <div class="icon">📝</div>
+                    <p>Drag & Drop PDF file here or <span class="browse-btn">Browse</span></p>
+                </div>
+                <div id="pdf-word-preview" class="preview-area"></div>
+                <button id="convert-pdf-word-btn" class="action-btn" disabled>Convert to Word</button>
+            </div>
+
+            <!-- Word to PDF Section -->
+            <div id="word-to-pdf" class="tab-content">
+                <div class="upload-area" id="drop-zone-word-pdf">
+                    <input type="file" id="word-pdf-input" accept=".docx" hidden>
+                    <div class="icon">📑</div>
+                    <p>Drag & Drop Word (.docx) file here or <span class="browse-btn">Browse</span></p>
+                </div>
+                <div id="word-pdf-preview" class="preview-area"></div>
+                <button id="convert-word-pdf-btn" class="action-btn" disabled>Convert to PDF</button>
+            </div>
+
+            <!-- Merge PDF Section -->
+            <div id="merge-pdf" class="tab-content">
+                <div class="upload-area" id="drop-zone-merge-pdf">
+                    <input type="file" id="merge-pdf-input" accept="application/pdf" multiple hidden>
+                    <div class="icon">🔗</div>
+                    <p>Drag & Drop multiple PDF files here (Series Wise) or <span class="browse-btn">Browse</span></p>
+                </div>
+                <div id="merge-pdf-preview" class="preview-area"></div>
+                <button id="merge-pdf-btn" class="action-btn" disabled>Merge PDFs</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
