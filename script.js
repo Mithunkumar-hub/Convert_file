@@ -1,15 +1,53 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Tabs Logic
+    // Tabs Logic with 3D Flip Animation
     const tabs = document.querySelectorAll('.tab-btn');
     const contents = document.querySelectorAll('.tab-content');
+    let isAnimating = false;
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('active'));
-            contents.forEach(c => c.classList.remove('active'));
+            // Prevent rapid clicking during animation
+            if (isAnimating) return;
 
-            tab.classList.add('active');
-            document.getElementById(tab.dataset.tab).classList.add('active');
+            const targetTab = tab.dataset.tab;
+            const currentActive = document.querySelector('.tab-content.active');
+            const newActive = document.getElementById(targetTab);
+
+            // If clicking the same tab, do nothing
+            if (currentActive === newActive) return;
+
+            isAnimating = true;
+
+            // Add flip-out animation to current tab
+            if (currentActive) {
+                currentActive.classList.add('flip-out');
+
+                // Wait for flip-out animation to complete
+                setTimeout(() => {
+                    currentActive.classList.remove('active', 'flip-out');
+
+                    // Update active tab button
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    // Show new tab with flip-in animation
+                    newActive.classList.add('active');
+
+                    // Allow new animations after flip-in completes
+                    setTimeout(() => {
+                        isAnimating = false;
+                    }, 600);
+                }, 300); // Half of the animation duration
+            } else {
+                // First load, no flip-out needed
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                newActive.classList.add('active');
+
+                setTimeout(() => {
+                    isAnimating = false;
+                }, 600);
+            }
         });
     });
 
@@ -351,6 +389,233 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Split PDF Logic ---
+    const splitPdfInput = document.getElementById('split-pdf-input');
+    const splitPdfDropZone = document.getElementById('drop-zone-split-pdf');
+    const splitPdfPreview = document.getElementById('split-pdf-preview');
+    const splitPdfBtn = document.getElementById('split-pdf-btn');
+    const splitOptions = document.querySelector('.split-options');
+    const splitRangeInput = document.getElementById('split-range');
+    const splitModeRadios = document.getElementsByName('split-mode');
+    let splitPdfFile = null;
+
+    setupDragAndDrop(splitPdfDropZone, splitPdfInput);
+
+    splitPdfInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            handleSplitPdfFile(e.target.files[0]);
+        }
+    });
+
+    // Toggle range input based on selection
+    splitModeRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            splitRangeInput.disabled = e.target.value !== 'range';
+            if (e.target.value === 'range') {
+                splitRangeInput.focus();
+            }
+        });
+    });
+
+    function handleSplitPdfFile(file) {
+        if (file.type !== 'application/pdf') {
+            alert('Please upload a PDF file.');
+            return;
+        }
+        splitPdfFile = file;
+        splitPdfPreview.innerHTML = `<div class="preview-item" style="width:auto; padding:10px; display:flex; align-items:center;">✂️ ${file.name}</div>`;
+        splitPdfBtn.disabled = false;
+        splitOptions.style.display = 'block';
+    }
+
+    splitPdfBtn.addEventListener('click', async () => {
+        if (!splitPdfFile) return;
+
+        splitPdfBtn.textContent = 'Splitting...';
+        splitPdfBtn.disabled = true;
+
+        try {
+            const arrayBuffer = await readFileAsArrayBuffer(splitPdfFile);
+            const { PDFDocument } = PDFLib;
+            const pdfDoc = await PDFDocument.load(arrayBuffer);
+            const totalPages = pdfDoc.getPageCount();
+
+            const mode = document.querySelector('input[name="split-mode"]:checked').value;
+
+            if (mode === 'all') {
+                // Split all pages into separate files
+                for (let i = 0; i < totalPages; i++) {
+                    const newPdf = await PDFDocument.create();
+                    const [page] = await newPdf.copyPages(pdfDoc, [i]);
+                    newPdf.addPage(page);
+                    const pdfBytes = await newPdf.save();
+                    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                    downloadBlob(blob, `page_${i + 1}.pdf`);
+                }
+            } else {
+                // Extract specific pages
+                const rangeStr = splitRangeInput.value.trim();
+                if (!rangeStr) {
+                    alert('Please enter page numbers to extract.');
+                    splitPdfBtn.disabled = false;
+                    splitPdfBtn.textContent = 'Split PDF';
+                    return;
+                }
+
+                const pagesToExtract = parsePageRange(rangeStr, totalPages);
+                if (pagesToExtract.length === 0) {
+                    alert('Invalid page range.');
+                    splitPdfBtn.disabled = false;
+                    splitPdfBtn.textContent = 'Split PDF';
+                    return;
+                }
+
+                const newPdf = await PDFDocument.create();
+                const copiedPages = await newPdf.copyPages(pdfDoc, pagesToExtract);
+                copiedPages.forEach(page => newPdf.addPage(page));
+
+                const pdfBytes = await newPdf.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                downloadBlob(blob, 'extracted_pages.pdf');
+            }
+
+            // Cleanup handled by user refreshing or loading new file, but we can reset UI if needed
+            // For now, keep file loaded to allow multiple operations
+
+        } catch (error) {
+            console.error(error);
+            alert('Error splitting PDF.');
+        } finally {
+            splitPdfBtn.textContent = 'Split PDF';
+            splitPdfBtn.disabled = false;
+        }
+    });
+
+    function parsePageRange(rangeStr, maxPages) {
+        const pages = new Set();
+        const parts = rangeStr.split(',');
+
+        for (const part of parts) {
+            const trimPart = part.trim();
+            if (trimPart.includes('-')) {
+                const [start, end] = trimPart.split('-').map(num => parseInt(num));
+                if (!isNaN(start) && !isNaN(end)) {
+                    for (let i = start; i <= end; i++) {
+                        if (i >= 1 && i <= maxPages) pages.add(i - 1); // 0-indexed
+                    }
+                }
+            } else {
+                const num = parseInt(trimPart);
+                if (!isNaN(num) && num >= 1 && num <= maxPages) {
+                    pages.add(num - 1);
+                }
+            }
+        }
+        return Array.from(pages).sort((a, b) => a - b);
+    }
+
+    // --- PPT to PDF Logic ---
+    const pptPdfInput = document.getElementById('ppt-pdf-input');
+    const pptPdfDropZone = document.getElementById('drop-zone-ppt-pdf');
+    const pptPdfPreview = document.getElementById('ppt-pdf-preview');
+    const convertPptPdfBtn = document.getElementById('convert-ppt-pdf-btn');
+    let pptPdfFile = null;
+
+    setupDragAndDrop(pptPdfDropZone, pptPdfInput);
+
+    pptPdfInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            handlePptPdfFile(e.target.files[0]);
+        }
+    });
+
+    function handlePptPdfFile(file) {
+        if (!file.name.endsWith('.pptx')) {
+            alert('Please upload a PowerPoint (.pptx) file.');
+            return;
+        }
+        pptPdfFile = file;
+        pptPdfPreview.innerHTML = `<div class="preview-item" style="width:auto; padding:10px; display:flex; align-items:center;">📊 ${file.name}</div>`;
+        convertPptPdfBtn.disabled = false;
+    }
+
+    convertPptPdfBtn.addEventListener('click', async () => {
+        if (!pptPdfFile) return;
+
+        convertPptPdfBtn.textContent = 'Converting...';
+        convertPptPdfBtn.disabled = true;
+
+        try {
+            const arrayBuffer = await readFileAsArrayBuffer(pptPdfFile);
+            const zip = await JSZip.loadAsync(arrayBuffer);
+
+            // Find all slide files
+            const slideFiles = Object.keys(zip.files).filter(name => name.startsWith('ppt/slides/slide') && name.endsWith('.xml'));
+
+            // Sort slides numerically
+            slideFiles.sort((a, b) => {
+                const numA = parseInt(a.match(/slide(\d+)\.xml/)[1]);
+                const numB = parseInt(b.match(/slide(\d+)\.xml/)[1]);
+                return numA - numB;
+            });
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            let hasContent = false;
+
+            for (let i = 0; i < slideFiles.length; i++) {
+                if (i > 0) doc.addPage();
+
+                const slideXml = await zip.file(slideFiles[i]).async('string');
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(slideXml, 'text/xml');
+
+                // Extract text from <a:t> elements
+                const textElements = xmlDoc.getElementsByTagName('a:t');
+                let slideText = '';
+
+                for (let j = 0; j < textElements.length; j++) {
+                    slideText += textElements[j].textContent + ' ';
+                }
+
+                // Add text to PDF
+                // Split text to fit page
+                const splitText = doc.splitTextToSize(slideText, 180);
+                let y = 10;
+
+                doc.setFontSize(14);
+                doc.text(`Slide ${i + 1}`, 10, y);
+                y += 10;
+
+                doc.setFontSize(10);
+                for (let k = 0; k < splitText.length; k++) {
+                    if (y > 280) {
+                        doc.addPage();
+                        y = 10;
+                    }
+                    doc.text(splitText[k], 10, y);
+                    y += 7;
+                }
+
+                if (slideText.trim().length > 0) hasContent = true;
+            }
+
+            if (!hasContent && slideFiles.length > 0) {
+                doc.text("No extractable text found in slides.", 10, 20);
+            }
+
+            doc.save('converted_presentation.pdf');
+
+        } catch (error) {
+            console.error(error);
+            alert('Error converting PPT to PDF.');
+        } finally {
+            convertPptPdfBtn.textContent = 'Convert to PDF';
+            convertPptPdfBtn.disabled = false;
+        }
+    });
+
+
     // --- Helpers ---
     function setupDragAndDrop(dropZone, input) {
         dropZone.addEventListener('click', () => input.click());
@@ -373,6 +638,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 else if (input === pdfWordInput) handlePdfWordFile(e.dataTransfer.files[0]);
                 else if (input === wordPdfInput) handleWordPdfFile(e.dataTransfer.files[0]);
                 else if (input === mergePdfInput) handleMergePdfFiles(e.dataTransfer.files);
+                else if (input === splitPdfInput) handleSplitPdfFile(e.dataTransfer.files[0]);
+                else if (input === pptPdfInput) handlePptPdfFile(e.dataTransfer.files[0]);
             }
         });
     }
