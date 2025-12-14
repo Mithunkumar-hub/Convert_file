@@ -170,12 +170,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const imgData = canvas.toDataURL('image/jpeg', 0.9);
                 downloadImage(imgData, `page_${i}.jpg`);
             }
+
+            // Reset
+            pdfFile = null;
+            pdfPreview.innerHTML = '';
+            pdfInput.value = '';
+            convertPdfBtn.disabled = true;
         } catch (error) {
             console.error(error);
             alert('Error converting PDF.');
         } finally {
             convertPdfBtn.textContent = 'Convert to JPEG';
-            convertPdfBtn.disabled = false;
         }
     });
 
@@ -245,12 +250,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const blob = await docx.Packer.toBlob(doc);
             downloadBlob(blob, 'converted_document.docx');
 
+            // Reset
+            pdfWordFile = null;
+            pdfWordPreview.innerHTML = '';
+            pdfWordInput.value = '';
+            convertPdfWordBtn.disabled = true;
         } catch (error) {
             console.error(error);
             alert('Error converting PDF to Word.');
         } finally {
             convertPdfWordBtn.textContent = 'Convert to Word';
-            convertPdfWordBtn.disabled = false;
         }
     });
 
@@ -311,12 +320,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             doc.save('converted_document.pdf');
 
+            // Reset
+            wordPdfFile = null;
+            wordPdfPreview.innerHTML = '';
+            wordPdfInput.value = '';
+            convertWordPdfBtn.disabled = true;
         } catch (error) {
             console.error(error);
             alert('Error converting Word to PDF.');
         } finally {
             convertWordPdfBtn.textContent = 'Convert to PDF';
-            convertWordPdfBtn.disabled = false;
         }
     });
 
@@ -479,15 +492,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 downloadBlob(blob, 'extracted_pages.pdf');
             }
 
-            // Cleanup handled by user refreshing or loading new file, but we can reset UI if needed
-            // For now, keep file loaded to allow multiple operations
-
+            // Reset
+            splitPdfFile = null;
+            splitPdfPreview.innerHTML = '';
+            splitPdfInput.value = '';
+            splitRangeInput.value = '';
+            splitOptions.style.display = 'none';
+            splitPdfBtn.disabled = true;
         } catch (error) {
             console.error(error);
             alert('Error splitting PDF.');
         } finally {
             splitPdfBtn.textContent = 'Split PDF';
-            splitPdfBtn.disabled = false;
         }
     });
 
@@ -606,12 +622,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             doc.save('converted_presentation.pdf');
 
+            // Reset
+            pptPdfFile = null;
+            pptPdfPreview.innerHTML = '';
+            pptPdfInput.value = '';
+            convertPptPdfBtn.disabled = true;
         } catch (error) {
             console.error(error);
             alert('Error converting PPT to PDF.');
         } finally {
             convertPptPdfBtn.textContent = 'Convert to PDF';
-            convertPptPdfBtn.disabled = false;
         }
     });
 
