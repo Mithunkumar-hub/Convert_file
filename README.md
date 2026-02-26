@@ -60,7 +60,8 @@ Access the fully hosted version of this tool at: **[https://mydeskmate.in](https
 *   **AI Jewelery Enhancer**: Secure extraction at [(https://mydeskmate.in/jewelry-enhance)](https://mydeskmate.in)
 *   **Resize To Print**: Secure extraction at [(https://mydeskmate.in/resize-print)](https://mydeskmate.in)
 *   **Compress Jpeg**: Secure extraction at [(https://mydeskmate.in/compress-jpeg)](https://mydeskmate.in)
-*   **Compare Pdf**: Secure extraction at [(https://mydeskmate.in/compare-pdf)](https://mydeskmate.in)
+*   **Compare Pdf**: Secure extraction at (https://mydeskmate.in/compare-pdf)
+
 
 
 
