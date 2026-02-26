@@ -32,3 +32,36 @@ A powerful, secure, and privacy-focused web-based file converter that runs entir
 ## 🔒 Privacy & Security
 
 This tool was designed with privacy in mind. Unlike many online converters that require uploading your sensitive documents to a remote server, **this project runs 100% client-side**. Your files never leave your computer.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  # 🚀 Client-Side File Converter | [Live Tool: mydeskmate.in](https://mydeskmate.in)
+
+A powerful, secure, and privacy-focused web-based file converter. Unlike traditional tools, **mydeskmate.in** runs entirely in your browser—ensuring your sensitive files never touch a server.
+
+## 🔗 Live Demo & Official Site
+Access the fully hosted version of this tool at: **[https://mydeskmate.in](https://mydeskmate.in)**
+
+---
+
+## 🚀 Features
+*   **JPEG to PDF**: Convert images locally at [(https://mydeskmate.in/jpeg-to-pdf)](https://mydeskmate.in)
+*   **PDF to Word**: Secure extraction at [(https://mydeskmate.in/pdf-to-word)](https://mydeskmate.in)
+*   **Word to PDF**: Secure extraction at [https://mydeskmate.in/word-to-pdf](https://mydeskmate.in)
+*   **PDF to Word**: Secure extraction at [(https://mydeskmate.in/pdf-to-word)](https://mydeskmate.in)
+*   **JPEG to PNG**: Secure extraction at [(https://mydeskmate.in/jpeg-to-png)](https://mydeskmate.in)
+*   **PDF to Excel**: Secure extraction at [(https://mydeskmate.in/pdf-to-excel)](https://mydeskmate.in)
+*   **Excel to PDF**: Secure extraction at [(https://mydeskmate.in/excel-to-pdf)](https://mydeskmate.in)
+*   **Marge Pdf**: Secure extraction at [(https://mydeskmate.in/merge-pdf)](https://mydeskmate.in)
+*   **Split PDF**: Secure extraction at [(https://mydeskmate.in/split-pdf)](https://mydeskmate.in)
+*   **Protect PDF**: Secure extraction at [(https://mydeskmate.in/protect-pdf)](https://mydeskmate.in)
+*   **Compress PDF**: Secure extraction at [(https://mydeskmate.in/compress-pdf)](https://mydeskmate.in)
+*   **AI Passport**: Secure extraction at [(https://mydeskmate.in/jpeg-remove-bg)](https://mydeskmate.in)
+*   **AI Jewelery Enhancer**: Secure extraction at [(https://mydeskmate.in/jewelry-enhance)](https://mydeskmate.in)
+*   **Resize To Print**: Secure extraction at [(https://mydeskmate.in/resize-print)](https://mydeskmate.in)
+*   **Compress Jpeg**: Secure extraction at [(https://mydeskmate.in/compress-jpeg)](https://mydeskmate.in)
+*   **Compare Pdf**: Secure extraction at [(https://mydeskmate.in/compare-pdf)](https://mydeskmate.in)
+
+
+
+
