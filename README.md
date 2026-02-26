@@ -45,22 +45,23 @@ Access the fully hosted version of this tool at: **[https://mydeskmate.in](https
 ---
 
 ## 🚀 Features
-*   **JPEG to PDF**: Convert images locally at [(https://mydeskmate.in/jpeg-to-pdf)](https://mydeskmate.in)
-*   **PDF to Word**: Secure extraction at [(https://mydeskmate.in/pdf-to-word)](https://mydeskmate.in)
-*   **Word to PDF**: Secure extraction at [https://mydeskmate.in/word-to-pdf](https://mydeskmate.in)
-*   **PDF to Word**: Secure extraction at [(https://mydeskmate.in/pdf-to-word)](https://mydeskmate.in)
-*   **JPEG to PNG**: Secure extraction at [(https://mydeskmate.in/jpeg-to-png)](https://mydeskmate.in)
-*   **PDF to Excel**: Secure extraction at [(https://mydeskmate.in/pdf-to-excel)](https://mydeskmate.in)
-*   **Excel to PDF**: Secure extraction at [(https://mydeskmate.in/excel-to-pdf)](https://mydeskmate.in)
-*   **Marge Pdf**: Secure extraction at [(https://mydeskmate.in/merge-pdf)](https://mydeskmate.in)
-*   **Split PDF**: Secure extraction at [(https://mydeskmate.in/split-pdf)](https://mydeskmate.in)
-*   **Protect PDF**: Secure extraction at [(https://mydeskmate.in/protect-pdf)](https://mydeskmate.in)
-*   **Compress PDF**: Secure extraction at [(https://mydeskmate.in/compress-pdf)](https://mydeskmate.in)
-*   **AI Passport**: Secure extraction at [(https://mydeskmate.in/jpeg-remove-bg)](https://mydeskmate.in)
-*   **AI Jewelery Enhancer**: Secure extraction at [(https://mydeskmate.in/jewelry-enhance)](https://mydeskmate.in)
-*   **Resize To Print**: Secure extraction at [(https://mydeskmate.in/resize-print)](https://mydeskmate.in)
-*   **Compress Jpeg**: Secure extraction at [(https://mydeskmate.in/compress-jpeg)](https://mydeskmate.in)
+*   **JPEG to PDF**: Convert images locally at (https://mydeskmate.in/jpeg-to-pdf)
+*   **PDF to Word**: Secure extraction at (https://mydeskmate.in/pdf-to-word)
+*   **Word to PDF**: Secure extraction at (https://mydeskmate.in/word-to-pdf)
+*   **PDF to Word**: Secure extraction at (https://mydeskmate.in/pdf-to-word)
+*   **JPEG to PNG**: Secure extraction at (https://mydeskmate.in/jpeg-to-png)
+*   **PDF to Excel**: Secure extraction at (https://mydeskmate.in/pdf-to-excel)
+*   **Excel to PDF**: Secure extraction at (https://mydeskmate.in/excel-to-pdf)
+*   **Marge Pdf**: Secure extraction at (https://mydeskmate.in/merge-pdf)
+*   **Split PDF**: Secure extraction at (https://mydeskmate.in/split-pdf)
+*   **Protect PDF**: Secure extraction at (https://mydeskmate.in/protect-pdf)
+*   **Compress PDF**: Secure extraction at (https://mydeskmate.in/compress-pdf)
+*   **AI Passport**: Secure extraction at (https://mydeskmate.in/jpeg-remove-bg)
+*   **AI Jewelery Enhancer**: Secure extraction at (https://mydeskmate.in/jewelry-enhance)
+*   **Resize To Print**: Secure extraction at (https://mydeskmate.in/resize-print)
+*   **Compress Jpeg**: Secure extraction at (https://mydeskmate.in/compress-jpeg)
 *   **Compare Pdf**: Secure extraction at (https://mydeskmate.in/compare-pdf)
+
 
 
 
